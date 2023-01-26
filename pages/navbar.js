@@ -2,26 +2,26 @@ import Image from "next/image";
 const Navbar = () => {
   return (
     <header className="bg-transparent w-full fixed z-10">
-      <nav className="mx-auto py-4 px-8 sm:flex justify-between items-center hidden max-w-[1500px]">
+      <nav className="mx-auto py-4 px-8 sm:flex justify-between items-center hidden max-w-[1700px]">
         <Image
           src="images/logo.svg"
           alt="Bri Bri's Kitchen Logo"
-          width="100"
-          height="100"
+          width="125"
+          height="125"
         />
         <ul className="flex items-center text-black">
           <li>
-            <a className="py-4 px-6 cursor-pointer hover:bg-slate-200 rounded">
+            <a className="py-4 px-6 cursor-pointer hover:bg-slate-300 transition-colors rounded">
               Home
             </a>
           </li>
           <li>
-            <a className="py-4 px-6 cursor-pointer hover:bg-slate-200 rounded">
+            <a className="py-4 px-6 cursor-pointer hover:bg-slate-300 transition-colors rounded">
               Features
             </a>
           </li>
           <li>
-            <a className="py-4 px-6 cursor-pointer hover:bg-slate-200 rounded">
+            <a className="py-4 px-6 cursor-pointer hover:bg-slate-300 transition-colors rounded">
               About
             </a>
           </li>

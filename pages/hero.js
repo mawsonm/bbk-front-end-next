@@ -13,7 +13,7 @@ const Hero = () => {
         objectFit="cover"
         objectPosition="center"
       />
-      <div className="max-w-[1440px] mx-auto flex flex-col gap-12 items-start justify-center sm:h-[calc(100vh-96px)] h-[100vh]">
+      <div className="max-w-[1600px] mx-auto flex flex-col gap-12 items-start justify-center sm:h-[calc(100vh-96px)] h-[100vh]">
         <h1 className="font-bold text-[72px] leading-[5rem]">
           Wondering what&apos;s
           <br /> for dinner tonight?
@@ -27,7 +27,7 @@ const Hero = () => {
           <span className="text-[36px] font-normal "> got you covered.</span>
         </div>
         <div className="flex gap-8">
-          <button className="bg-red-200 px-8 py-2 rounded relative">
+          <button className="bg-red-200 hover:bg-slate-300 transition-colors px-8 py-2 rounded relative">
             Get Started
             <FontAwesomeIcon
               icon={faArrowRight}

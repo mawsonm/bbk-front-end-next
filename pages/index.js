@@ -1,7 +1,13 @@
-export default function Home() {
+import Hero from "./hero";
+import Navbar from "./navbar";
+
+const Home = () => {
   return (
     <>
-      <div className="rounded bg-red w-[500px] h-[500px]">Hello</div>
+      <Navbar />
+      <Hero />
     </>
   );
-}
+};
+
+export default Home;

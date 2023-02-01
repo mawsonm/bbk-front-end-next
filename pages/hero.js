@@ -4,27 +4,30 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 const Hero = () => {
   return (
-    <div className="h-[100vh] w-full relative">
+    <div id="home" className="h-[100vh] w-full relative">
       <Image
-        className="transform -scale-x-100 -z-10 "
+        className="transform -scale-x-100 sm:translate-x-0 object-cover sm:object-center object-right  -z-10 "
         src="/images/hero.jpg"
         alt="Chef plating Filet Mignon"
         fill={true}
-        objectFit="cover"
-        objectPosition="center"
       />
-      <div className="max-w-[1600px] mx-auto flex flex-col gap-12 items-start justify-center sm:h-[calc(100vh-96px)] h-[100vh]">
-        <h1 className="font-bold text-[72px] leading-[5rem]">
+      <div className="max-w-[1600px] mx-auto flex flex-col gap-12 sm:items-start items-center justify-center sm:h-[calc(100vh-96px)] h-[100vh]">
+        <h1 className="font-bold sm:text-[72px] text-[48px] sm:leading-[5rem] leading-[3rem] sm:text-left text-center">
           Wondering what&apos;s
           <br /> for dinner tonight?
         </h1>
-        <div>
-          <h2 className="text-[36px] font-bold -my-5">Don&apos;t worry.</h2>
-          <span className="font-semibold font-fancy text-red-300 text-[64px] -mt-8">
+        <div className="text-center sm:text-left">
+          <h2 className="text-[36px] font-semibold -my-5 sm:mb-0 mb-8">
+            Don&apos;t worry.
+          </h2>
+          <span className="font-semibold font-fancy text-red-300 sm:text-[64px] text-[48px] -mt-8">
             Bri Bri&apos;s{"            "}
           </span>
           {"       "}
-          <span className="text-[36px] font-normal "> got you covered.</span>
+          <span className="text-[36px] font-normal sm:text-left text-center">
+            {" "}
+            got you covered.
+          </span>
         </div>
         <div className="flex gap-8">
           <button className="bg-red-200 hover:bg-slate-300 transition-colors px-8 py-2 rounded relative">

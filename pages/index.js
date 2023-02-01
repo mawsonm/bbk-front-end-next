@@ -6,7 +6,6 @@ import About from "./about";
 const Home = () => {
   return (
     <>
-      <Navbar />
       <Hero />
       <Features />
       <About />

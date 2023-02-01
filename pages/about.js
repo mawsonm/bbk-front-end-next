@@ -3,7 +3,7 @@ import Image from "next/image";
 const About = () => {
   return (
     <div id="about" className="bg-slate-100 py-16">
-      <div className="flex sm:flex-row flex-col justify-around sm:items-start items-center max-w-[1500px] mx-auto">
+      <div className="flex sm:flex-row md:flex-col lg:flex-row flex-col justify-around sm:items-start md:items-center lg:items-start items-center max-w-[1500px] mx-auto">
         <div className="sm:w-[450px] w-[350px]">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -33,16 +33,16 @@ const About = () => {
           </svg>
         </div>
         <div className="relative sm:m-0 mx-4">
-          <h2 className="text-[44px] sm:text-[48px] font-bold">
+          <h2 className="text-[42px] sm:text-[48px] font-bold md:text-center lg:text-left">
             Meet your Chef!
           </h2>
           <Image
             width={75}
             height={75}
             src={"/images/underline.svg"}
-            className="absolute right-[7%] sm:right-[46%] sm:top-[15%]"
+            className="absolute right-[7%] md:right-[25%] md:top-[17%] lg:right-[46%] lg:top-[15%]"
           />
-          <p className="sm:w-[60ch] sm:text-left w-[30ch] text-[18px] mt-8">
+          <p className="md:max-w-[60ch] sm:text-left max-w-[30ch] text-[18px] mt-8">
             <span className="font-fancy text-[36px] text-red-200 mr-4 leading-4">
               Bri Bri
             </span>

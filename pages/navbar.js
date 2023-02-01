@@ -3,7 +3,7 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Navbar = () => {
   return (
-    <header className="bg-transparent w-full fixed z-10">
+    <header className="bg-transparent w-full z-10">
       <nav className="mx-auto py-4 px-8 sm:flex justify-between items-center hidden max-w-[1700px]">
         <Image
           src="images/logo.svg"
@@ -30,7 +30,7 @@ const Navbar = () => {
         </ul>
         <button className="bg-red-200 px-6 py-2 rounded">Login</button>
       </nav>
-      <nav className="flex sm:hidden justify-between m-4 items-center">
+      <nav className="flex sm:hidden justify-between pt-4 px-4 items-center">
         <Image
           src="images/logo.svg"
           alt="Bri Bri's Kitchen Logo"

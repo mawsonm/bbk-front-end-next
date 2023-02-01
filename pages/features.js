@@ -22,7 +22,7 @@ const Features = () => {
             alt="Bri Bri teaches you how to cook"
           />
         </div>
-        <div className="container flex sm:flex-row flex-col items-center bg-slate-100 rounded-xl p-12">
+        <div className="container flex md:max-xl:grid md:max-xl:grid-cols-2 md:mx-auto mx-0 xl:flex sm:flex-row xl:flex-row flex-col items-center bg-slate-100 rounded-xl p-12">
           <FeatureCard
             key={1}
             number={1}

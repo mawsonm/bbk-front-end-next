@@ -1,17 +1,19 @@
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import Navbar from "./navbar";
 
 const Hero = () => {
   return (
-    <div id="home" className="h-[100vh] w-full relative">
+    <div id="home" className="min-h-[100vh] w-full relative">
       <Image
         className="transform -scale-x-100 sm:translate-x-0 object-cover sm:object-center object-right  -z-10 "
         src="/images/hero.jpg"
         alt="Chef plating Filet Mignon"
         fill={true}
       />
-      <div className="max-w-[1600px] mx-auto flex flex-col gap-12 sm:items-start items-center justify-center sm:h-[calc(100vh-96px)] h-[100vh]">
+      <Navbar />
+      <div className="2xl:max-w-[1600px] w-full md:w-[50%] 2xl:w-full mx-auto md:ml-8 2xl:mx-auto flex flex-col gap-12 sm:items-start items-center justify-center sm:h-[calc(100vh-96px)] min-h-[100vh]">
         <h1 className="font-bold sm:text-[72px] text-[48px] sm:leading-[5rem] leading-[3rem] sm:text-left text-center">
           Wondering what&apos;s
           <br /> for dinner tonight?
@@ -30,7 +32,7 @@ const Hero = () => {
           </span>
         </div>
         <div className="flex gap-8">
-          <button className="bg-red-200 hover:bg-slate-300 transition-colors px-8 py-2 rounded relative">
+          <button className="bg-red-200 hover:bg-slate-300 transition-colors px-8 py-2 mb-12 rounded relative">
             Get Started
             <FontAwesomeIcon
               icon={faArrowRight}

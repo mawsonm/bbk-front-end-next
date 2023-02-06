@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import Navbar from "./navbar";
+import Navbar from "../general/navbar";
 
 const Hero = () => {
   return (

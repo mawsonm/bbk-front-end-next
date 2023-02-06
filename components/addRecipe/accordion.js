@@ -21,15 +21,19 @@ const Accordion = (props) => {
           {props.index}. {props.title}
         </h2>
         <div className="flex gap-8">
-          <FontAwesomeIcon icon={faCircleExclamation} color={"#ef4444"} />
-          <FontAwesomeIcon icon={faCircleCheck} color={"#22c55e"} />
+          {props.valid === true && (
+            <FontAwesomeIcon icon={faCircleCheck} color={"#22c55e"} />
+          )}
+          {props.valid === false && (
+            <FontAwesomeIcon icon={faCircleExclamation} color={"#ef4444"} />
+          )}
           <FontAwesomeIcon
             icon={faAngleDown}
             className={`mr-4 transition-transform ${open ? "" : "rotate-180"}`}
           />
         </div>
       </div>
-      {open && props.children}
+      <div className={`${!open && "hidden"}`}>{props.children}</div>
     </>
   );
 };

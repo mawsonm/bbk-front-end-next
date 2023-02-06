@@ -1,6 +1,6 @@
 const Input = (props) => {
   return (
-    <div className="relative py-8">
+    <div className={`relative py-8 ${props.suffix && "w-[100px]"}`}>
       <label className="absolute top-0 left-0 text-neutral-500">
         {props.title}
       </label>
@@ -10,15 +10,21 @@ const Input = (props) => {
         }`}
       >
         <input
+          onChange={props.validator.valueChangeHandler}
+          onBlur={props.validator.inputBlurHandler}
           type={props.type}
-          className={`rounded mb-2 focus:outline ${
+          className={` ${
+            props.validator.hasError &&
+            props.type != "file" &&
+            "border-red-600 border"
+          } rounded mb-2 focus:outline ${
             props.type === "file"
               ? ""
               : "bg-slate-200 py-2 px-4 focus:bg-slate-100"
-          } focus:outline-2 outline-red-200 ${
-            props.suffix ? "w-[100px]" : ""
+          } focus:outline-2 outline-red-200 ${props.suffix && "w-[100px]"} ${
+            props.title === "Description" && "w-[700px]"
           } ${
-            props.title === "Description" ? "w-[700px]" : "w-[350px]"
+            props.title === "Recipe Name" && "w-[350px]"
           } file:rounded file:bg-red-200 file:border-none file:py-2 file:px-4 file:mr-4`}
         />
         {props.suffix && (
@@ -27,8 +33,8 @@ const Input = (props) => {
           </span>
         )}
       </div>
-      <p className="text-[13px] asbolute bottom-0 text-red-600 ml-1">
-        Oh no... Not valid!
+      <p className="text-[13px] absolute text-red-600 ml-1">
+        {props.validator.message}
       </p>
     </div>
   );

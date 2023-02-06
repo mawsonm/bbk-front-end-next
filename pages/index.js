@@ -1,7 +1,7 @@
-import Hero from "./hero";
-import Navbar from "./navbar";
-import Features from "./features";
-import About from "./about";
+import Hero from "../components/home/hero";
+import Navbar from "../components/general/navbar";
+import Features from "../components/home/features";
+import About from "../components/home/about";
 
 const Home = () => {
   return (

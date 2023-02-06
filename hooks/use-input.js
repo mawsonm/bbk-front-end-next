@@ -14,6 +14,11 @@ const useInput = (validateValue, errorMsg) => {
     setIsTouched(true);
   };
 
+  const reset = () => {
+    setIsTouched(false);
+    setEnteredValue("");
+  };
+
   let message = hasError ? errorMsg : "";
 
   return {
@@ -24,6 +29,7 @@ const useInput = (validateValue, errorMsg) => {
     valueChangeHandler,
     inputBlurHandler,
     message,
+    reset,
   };
 };
 

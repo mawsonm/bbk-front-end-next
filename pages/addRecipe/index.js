@@ -2,8 +2,11 @@ import Navbar from "../../components/general/navbar";
 import Accordion from "../../components/addRecipe/accordion";
 import General from "../../components/addRecipe/general";
 import useInput from "@/hooks/use-input";
+import Ingredients from "@/components/addRecipe/ingredients";
+import { useState } from "react";
 
 const AddRecipe = () => {
+  const [ingredients, setIngredients] = useState([]);
   const nameValidator = (val) => {
     const value = val.trim();
     return value.length > 0 && value.length <= 64;
@@ -13,11 +16,11 @@ const AddRecipe = () => {
     return value.length > 0 && value.length <= 128;
   };
 
-  const categoryValidator = (val) => {
+  const selectValidator = (val) => {
     return val !== "Select One" && val !== "";
   };
 
-  const timeValidator = (val) => {
+  const numberValidator = (val) => {
     return val > 0 && val.trim().length <= 3;
   };
 
@@ -33,19 +36,16 @@ const AddRecipe = () => {
     descriptionValidator,
     "Description must be less than 128 characters."
   );
-  const categoryInput = useInput(
-    categoryValidator,
-    "Please select a category."
-  );
+  const categoryInput = useInput(selectValidator, "Please select a category.");
   const timeInput = useInput(
-    timeValidator,
+    numberValidator,
     "Please input a number greater than 0 that is 3 digits or less."
   );
   const uploadInput = useInput(
     uploadValidator,
     "Please select an image to upload."
   );
-  let isValid =
+  let isGeneralValid =
     nameInput.isValid &&
     descriptionInput.isValid &&
     categoryInput.isValid &&
@@ -58,8 +58,28 @@ const AddRecipe = () => {
     !timeInput.isTouched &&
     !uploadInput.isTouched
   ) {
-    isValid = null;
+    isGeneralValid = null;
   }
+
+  const ingredientName = useInput(
+    nameValidator,
+    "Please input an ingredient name that is less than 64 characters."
+  );
+  const ingredientAmount = useInput(
+    numberValidator,
+    "Please input an ingredient amount that is greater than 0."
+  );
+  const ingredientUnit = useInput(selectValidator, "Please select a unit.");
+
+  let isIngredientValid = ingredients.length > 0;
+  if (
+    !ingredientName.isTouched &&
+    !ingredientAmount.isTouched &&
+    !ingredientUnit.isTouched
+  ) {
+    isIngredientValid = null;
+  }
+
   return (
     <>
       <Navbar />
@@ -73,7 +93,7 @@ const AddRecipe = () => {
             index={1}
             title={"General Details"}
             open={true}
-            valid={isValid}
+            valid={isGeneralValid}
           >
             <General
               name={nameInput}
@@ -83,7 +103,20 @@ const AddRecipe = () => {
               upload={uploadInput}
             />
           </Accordion>
-          <Accordion index={2} title={"Ingredients"} open={false}></Accordion>
+          <Accordion
+            index={2}
+            title={"Ingredients"}
+            open={false}
+            valid={isIngredientValid}
+          >
+            <Ingredients
+              name={ingredientName}
+              amount={ingredientAmount}
+              unit={ingredientUnit}
+              ingredients={ingredients}
+              addIngredient={setIngredients}
+            />
+          </Accordion>
           <Accordion index={3} title={"Instructions"} open={false}></Accordion>
         </div>
       </div>

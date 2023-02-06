@@ -1,6 +1,6 @@
 const Select = (props) => {
   return (
-    <div className="relative py-8">
+    <div className="relative py-8 min-w-[100px]">
       <span className="absolute left-0 top-0 text-neutral-500">
         {props.title}
       </span>

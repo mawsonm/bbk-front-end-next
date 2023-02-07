@@ -13,11 +13,11 @@ const IngredientList = (props) => {
         return (
           <div
             key={index}
-            className="bg-slate-200 rounded px-4 py-2 flex gap-2 items-center"
+            className="bg-slate-200 rounded-lg px-4 py-2 flex gap-2 items-center drop-shadow-md"
           >
             <span>{`${ingredient.quantity} ${ingredient.unit}${
               ingredient.quantity > 1 ? "s" : ""
-            } ${ingredient.name}`}</span>
+            } of ${ingredient.name}`}</span>
             <FontAwesomeIcon
               icon={faCircleXmark}
               className="cursor-pointer"

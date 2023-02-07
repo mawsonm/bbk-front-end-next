@@ -7,9 +7,10 @@ const Select = (props) => {
       <select
         className={` ${
           props.validator.hasError && "border-red-600 border"
-        } rounded focus:outline focus:bg-slate-100 focus:outline-2 p-2 bg-slate-200 outline-red-200`}
+        } rounded focus:outline-2 focus:bg-slate-100 focus:outline-2 p-2 bg-slate-200 outline-red-200 mb-1`}
         onChange={props.validator.valueChangeHandler}
         onBlur={props.validator.inputBlurHandler}
+        value={props.validator.value}
       >
         {props.options.map((option, index) => {
           return (
@@ -19,7 +20,7 @@ const Select = (props) => {
           );
         })}
       </select>
-      <p className="text-[13px] absolute mt-4 text-red-600 ml-1">
+      <p className="text-[13px] absolute mt-2 text-red-600 ml-1">
         {props.validator.message}
       </p>
     </div>

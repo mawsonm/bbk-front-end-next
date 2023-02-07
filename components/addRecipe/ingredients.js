@@ -28,8 +28,11 @@ const Ingredients = (props) => {
           options={["Select One", "cup", "tsp"]}
         />
         <button
-          className="bg-red-200 px-6 py-2 rounded "
+          className="bg-red-200 px-6 py-2 rounded disabled:opacity-50"
           onClick={submitHandler}
+          disabled={
+            !props.name.isValid || !props.amount.isValid || !props.unit.isValid
+          }
         >
           Submit
         </button>

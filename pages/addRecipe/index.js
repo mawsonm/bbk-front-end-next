@@ -3,10 +3,12 @@ import Accordion from "../../components/addRecipe/accordion";
 import General from "../../components/addRecipe/general";
 import useInput from "@/hooks/use-input";
 import Ingredients from "@/components/addRecipe/ingredients";
+import Instructions from "@/components/addRecipe/instructions";
 import { useState } from "react";
 
 const AddRecipe = () => {
   const [ingredients, setIngredients] = useState([]);
+  const [instructions, setInstructions] = useState([]);
   const nameValidator = (val) => {
     const value = val.trim();
     return value.length > 0 && value.length <= 64;
@@ -80,6 +82,15 @@ const AddRecipe = () => {
     isIngredientValid = null;
   }
 
+  const instructionsValidator = (val) => {
+    return val.trim().length > 0 && val.trim().length <= 256;
+  };
+
+  const instructionsInput = useInput(
+    instructionsValidator,
+    "Individual instructions must be no more than 256 characters."
+  );
+
   return (
     <>
       <Navbar />
@@ -117,7 +128,13 @@ const AddRecipe = () => {
               addIngredient={setIngredients}
             />
           </Accordion>
-          <Accordion index={3} title={"Instructions"} open={false}></Accordion>
+          <Accordion index={3} title={"Instructions"} open={false}>
+            <Instructions
+              validator={instructionsInput}
+              instructions={instructions}
+              setInstructions={setInstructions}
+            />
+          </Accordion>
         </div>
       </div>
     </>

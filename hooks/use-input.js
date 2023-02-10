@@ -1,5 +1,5 @@
 import { useState } from "react";
-const useInput = (validateValue, errorMsg) => {
+const useInput = (validateValue, errorMsg, isSelect) => {
   const [enteredValue, setEnteredValue] = useState("");
   const [isTouched, setIsTouched] = useState(false);
 

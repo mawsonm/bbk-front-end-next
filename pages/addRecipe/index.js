@@ -6,7 +6,7 @@ import Ingredients from "@/components/addRecipe/ingredients";
 import Instructions from "@/components/addRecipe/instructions";
 import { useState } from "react";
 
-const AddRecipe = () => {
+const AddRecipe = (props) => {
   const [ingredients, setIngredients] = useState([]);
   const [instructions, setInstructions] = useState([]);
   const nameValidator = (val) => {
@@ -32,20 +32,28 @@ const AddRecipe = () => {
 
   const nameInput = useInput(
     nameValidator,
-    "Recipe Name must be less than 64 characters."
+    "Recipe Name must be less than 64 characters.",
+    false
   );
   const descriptionInput = useInput(
     descriptionValidator,
-    "Description must be less than 128 characters."
+    "Description must be less than 128 characters.",
+    false
   );
-  const categoryInput = useInput(selectValidator, "Please select a category.");
+  const categoryInput = useInput(
+    selectValidator,
+    "Please select a category.",
+    true
+  );
   const timeInput = useInput(
     numberValidator,
-    "Please input a number greater than 0 that is 3 digits or less."
+    "Please input a number greater than 0 that is 3 digits or less.",
+    false
   );
   const uploadInput = useInput(
     uploadValidator,
-    "Please select an image to upload."
+    "Please select an image to upload.",
+    false
   );
   let isGeneralValid =
     nameInput.isValid &&
@@ -65,13 +73,19 @@ const AddRecipe = () => {
 
   const ingredientName = useInput(
     nameValidator,
-    "Please input an ingredient name that is less than 64 characters."
+    "Please input an ingredient name that is less than 64 characters.",
+    false
   );
   const ingredientAmount = useInput(
     numberValidator,
-    "Please input an ingredient amount that is greater than 0."
+    "Please input an ingredient amount that is greater than 0.",
+    false
   );
-  const ingredientUnit = useInput(selectValidator, "Please select a unit.");
+  const ingredientUnit = useInput(
+    selectValidator,
+    "Please select a unit.",
+    true
+  );
 
   let isIngredientValid = ingredients.length > 0;
   if (
@@ -112,6 +126,8 @@ const AddRecipe = () => {
               category={categoryInput}
               time={timeInput}
               upload={uploadInput}
+              categoriesValidator={categoryInput}
+              categories={props.categories}
             />
           </Accordion>
           <Accordion
@@ -123,9 +139,10 @@ const AddRecipe = () => {
             <Ingredients
               name={ingredientName}
               amount={ingredientAmount}
-              unit={ingredientUnit}
+              unitsValidator={ingredientUnit}
               ingredients={ingredients}
               addIngredient={setIngredients}
+              units={props.units}
             />
           </Accordion>
           <Accordion index={3} title={"Instructions"} open={false}>
@@ -140,5 +157,28 @@ const AddRecipe = () => {
     </>
   );
 };
+
+export async function getStaticProps() {
+  const unitsData = await fetch("http://localhost:8080/api/unit");
+  const unitsInfo = await unitsData.json();
+  unitsInfo._embedded.unit.unshift({ name: "Select One", id: null });
+  const units = unitsInfo._embedded.unit.map((item) => {
+    return { name: item.name, id: item.id };
+  });
+
+  const categoryData = await fetch("http://localhost:8080/api/category");
+  const categoryInfo = await categoryData.json();
+  categoryInfo._embedded.category.unshift({ name: "Select One", id: null });
+  const categories = categoryInfo._embedded.category.map((item) => {
+    return { name: item.name, id: item.id };
+  });
+
+  return {
+    props: {
+      categories,
+      units,
+    },
+  };
+}
 
 export default AddRecipe;

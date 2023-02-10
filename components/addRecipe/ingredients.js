@@ -9,11 +9,11 @@ const Ingredients = (props) => {
       {
         name: props.name.value,
         quantity: props.amount.value,
-        unit: props.unit.value,
+        unit: props.unitsValidator.value,
       },
     ]);
     props.name.reset();
-    props.unit.reset();
+    props.unitsValidator.reset();
     props.amount.reset();
   };
 
@@ -24,14 +24,16 @@ const Ingredients = (props) => {
         <Input type={"number"} title={"Amount"} validator={props.amount} />
         <Select
           title={"Unit"}
-          validator={props.unit}
-          options={["Select One", "cup", "tsp"]}
+          validator={props.unitsValidator}
+          options={props.units}
         />
         <button
           className="bg-red-200 px-6 py-2 rounded disabled:opacity-50"
           onClick={submitHandler}
           disabled={
-            !props.name.isValid || !props.amount.isValid || !props.unit.isValid
+            !props.name.isValid ||
+            !props.amount.isValid ||
+            !props.unitsValidator.isValid
           }
         >
           Submit

@@ -12,10 +12,10 @@ const Select = (props) => {
         onBlur={props.validator.inputBlurHandler}
         value={props.validator.value}
       >
-        {props.options.map((option, index) => {
+        {props.options?.map((option, index) => {
           return (
-            <option key={index} value={option}>
-              {option}
+            <option key={index} value={option.name}>
+              {option.name}
             </option>
           );
         })}

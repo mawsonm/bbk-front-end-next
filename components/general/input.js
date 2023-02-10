@@ -3,14 +3,14 @@ const Input = (props) => {
     <div
       className={`relative py-8 ${
         props.title == "Instruction" && "w-[50%] min-w-[325px] h-[10rem]"
-      } ${props.suffix && "w-[100px]"}`}
+      } ${props.suffix && "w-[120px]"}`}
     >
       <label className="absolute top-0 left-0 text-neutral-500">
         {props.title}
       </label>
       <div
         className={`${props.suffix ? "relative" : ""} ${
-          props.suffix ? "w-[100px]" : "w-full"
+          props.suffix ? "w-[120px]" : "w-full"
         }`}
       >
         {props.title != "Instruction" && (
@@ -27,10 +27,10 @@ const Input = (props) => {
               props.type === "file"
                 ? ""
                 : "bg-slate-200 py-2 px-4 focus:bg-slate-100"
-            } focus:outline-2 outline-red-200 ${props.suffix && "w-[100px]"} ${
-              props.title === "Description" && "w-[700px]"
+            } focus:outline-2 outline-red-200 ${props.suffix && "w-[120px]"} ${
+              props.title === "Description*" && "w-[700px]"
             } ${
-              props.title === "Recipe Name" && "w-[350px]"
+              props.title === "Recipe Name*" && "w-[350px]"
             } file:rounded file:bg-red-200 file:border-none file:py-2 file:px-4 file:mr-4`}
           />
         )}

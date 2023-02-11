@@ -13,7 +13,7 @@ const Accordion = (props) => {
     <>
       <div
         className={`flex justify-between mx-8 border-t-2 border-slate-200 text-[30px] items-center cursor-pointer ${
-          props.index == 3 ? "border-b-2" : ""
+          props.index == 4 ? "border-b-2" : ""
         }`}
         onClick={() => setOpen((prev) => !prev)}
       >
@@ -21,11 +21,16 @@ const Accordion = (props) => {
           {props.index}. {props.title}
         </h2>
         <div className="flex gap-8">
-          {props.valid === true && (
+          {props.valid === true && !props.optional && (
             <FontAwesomeIcon icon={faCircleCheck} color={"#22c55e"} />
           )}
-          {props.valid === false && (
+          {props.valid === false && !props.optional && (
             <FontAwesomeIcon icon={faCircleExclamation} color={"#ef4444"} />
+          )}
+          {props.optional && (
+            <span className="italic text-neutral-500 text-[18px] ml-8">
+              Optional
+            </span>
           )}
           <FontAwesomeIcon
             icon={faAngleDown}

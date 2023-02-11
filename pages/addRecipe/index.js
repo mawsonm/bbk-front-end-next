@@ -4,11 +4,13 @@ import General from "../../components/addRecipe/general";
 import useInput from "@/hooks/use-input";
 import Ingredients from "@/components/addRecipe/ingredients";
 import Instructions from "@/components/addRecipe/instructions";
+import Autocomplete from "@/components/general/autocomplete";
 import { useState } from "react";
 
 const AddRecipe = (props) => {
   const [ingredients, setIngredients] = useState([]);
   const [instructions, setInstructions] = useState([]);
+  const [selectedRecipe, setSelectedRecipe] = useState({});
   const nameValidator = (val) => {
     const value = val.trim();
     return value.length > 0 && value.length <= 64;
@@ -91,7 +93,8 @@ const AddRecipe = (props) => {
   if (
     !ingredientName.isTouched &&
     !ingredientAmount.isTouched &&
-    !ingredientUnit.isTouched
+    !ingredientUnit.isTouched &&
+    !isIngredientValid
   ) {
     isIngredientValid = null;
   }
@@ -105,20 +108,49 @@ const AddRecipe = (props) => {
     "Individual instructions must be no more than 256 characters."
   );
 
+  let isInstructionValid = instructions.length > 0;
+  if (!instructionsInput.isTouched && !isInstructionValid) {
+    isInstructionValid = null;
+  }
+
+  const checkValidator = (val) => {
+    return true;
+  };
+
+  const checkInput = useInput(checkValidator, "");
+
+  const submitHandler = () => {
+    console.log("Submitted");
+  };
+
   return (
     <>
       <Navbar />
       <div className="w-full bg-slate-300 min-h-[calc(100vh-115px)]">
         <div className="max-w-[1500px] mx-auto py-16">
-          <h1 className="text-[48px] mx-8 font-semibold">Add Recipe</h1>
-          <p className="text-[18px] mb-8 mx-8">
-            Please fill out details for your recipe.
-          </p>
+          <div className="flex justify-between items-center">
+            <div>
+              <h1 className="text-[48px] mx-8 font-semibold">Add Recipe</h1>
+              <p className="text-[18px] mb-8 mx-8">
+                Please fill out details for your recipe.
+              </p>
+            </div>
+            <button
+              className="bg-red-200 px-6 py-2 rounded disabled:opacity-50"
+              onClick={submitHandler}
+              disabled={
+                !isGeneralValid || !isIngredientValid || !isInstructionValid
+              }
+            >
+              Submit
+            </button>
+          </div>
           <Accordion
             index={1}
             title={"General Details"}
             open={true}
             valid={isGeneralValid}
+            optional={false}
           >
             <General
               name={nameInput}
@@ -126,6 +158,7 @@ const AddRecipe = (props) => {
               category={categoryInput}
               time={timeInput}
               upload={uploadInput}
+              fav={checkInput}
               categoriesValidator={categoryInput}
               categories={props.categories}
             />
@@ -135,6 +168,7 @@ const AddRecipe = (props) => {
             title={"Ingredients"}
             open={false}
             valid={isIngredientValid}
+            optional={false}
           >
             <Ingredients
               name={ingredientName}
@@ -145,11 +179,29 @@ const AddRecipe = (props) => {
               units={props.units}
             />
           </Accordion>
-          <Accordion index={3} title={"Instructions"} open={false}>
+          <Accordion
+            index={3}
+            valid={isInstructionValid}
+            title={"Instructions"}
+            open={false}
+            optional={false}
+          >
             <Instructions
               validator={instructionsInput}
               instructions={instructions}
               setInstructions={setInstructions}
+            />
+          </Accordion>
+          <Accordion
+            index={4}
+            title={"Drink Pairing"}
+            open={false}
+            optional={true}
+          >
+            <Autocomplete
+              title={"Drink Pairing"}
+              setSelected={setSelectedRecipe}
+              selected={selectedRecipe}
             />
           </Accordion>
         </div>

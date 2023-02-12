@@ -26,6 +26,8 @@ const General = (props) => {
         title={"Upload an Image*"}
         type={"file"}
         validator={props.upload}
+        selectedFile={props.fileSelected}
+        setSelectedFile={props.setFileSelected}
       />
     </div>
   );

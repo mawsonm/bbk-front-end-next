@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 const Autocomplete = (props) => {
   const [recipes, setRecipes] = useState([]);
@@ -7,9 +8,7 @@ const Autocomplete = (props) => {
 
   const findByNameContaining = async (input) => {
     setInputValue(input);
-    const recipeData = await fetch(
-      `http://localhost:8080/recipe?name=${input}`
-    );
+    const recipeData = await fetch(`http://localhost:8080/drink?name=${input}`);
     const recipeJson = await recipeData.json();
     console.log(recipeJson);
     //TODO: refactor to use api call that filters server side
@@ -73,26 +72,46 @@ const Autocomplete = (props) => {
           </ul>
         }
       </div>
-      {props.selected && (
-        <div className="flex flex-col gap-4">
-          <label className="text-neutral-500 text-[24px]">Selected Drink</label>
+      {Object.values(props.selected).length != 0 && (
+        <>
           <div>
-            <label className="text-neutral-500">Name: </label>
-            <span className="text-neutral-800 ">{props.selected.name}</span>
+            <label className="text-neutral-500 text-[32px]">
+              Selected Drink
+            </label>
+            <div className="flex gap-4 mt-4">
+              <div className="w-[200px] h-[200px]">
+                <Image
+                  className="object-cover"
+                  loader={() => props.selected.imageUrl}
+                  width={"200"}
+                  height={"200"}
+                  src={props.selected.imageUrl}
+                  alt={props.selected.name}
+                />
+              </div>
+              <div className="flex flex-col gap-4">
+                <div>
+                  <label className="text-neutral-500">Name: </label>
+                  <span className="text-neutral-800 ">
+                    {props.selected.name}
+                  </span>
+                </div>
+                <div>
+                  <label className="text-neutral-500">Description: </label>
+                  <span className="text-neutral-800 ">
+                    {props.selected.description}
+                  </span>
+                </div>
+                <div>
+                  <label className="text-neutral-500">Time to Make: </label>
+                  <span className="text-neutral-800 ">
+                    {props.selected.timeToCook} minutes
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
-          <div>
-            <label className="text-neutral-500">Description: </label>
-            <span className="text-neutral-800 ">
-              {props.selected.description}
-            </span>
-          </div>
-          <div>
-            <label className="text-neutral-500">Time to Make: </label>
-            <span className="text-neutral-800 ">
-              {props.selected.timeToCook}
-            </span>
-          </div>
-        </div>
+        </>
       )}
     </div>
   );

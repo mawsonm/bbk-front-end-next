@@ -1,4 +1,10 @@
 const Input = (props) => {
+  const changeHandler = (e) => {
+    if (props.type == "file") {
+      props.setSelectedFile(e.target.files[0]);
+    }
+    props.validator.valueChangeHandler(e);
+  };
   return (
     <div
       className={`relative py-8 ${
@@ -15,10 +21,11 @@ const Input = (props) => {
       >
         {props.title != "Instruction" && (
           <input
-            onChange={props.validator.valueChangeHandler}
+            onChange={(e) => changeHandler(e)}
             onBlur={props.validator.inputBlurHandler}
             type={props.type}
             value={props.validator.value}
+            accept={props.type === "file" ? "image/*" : ""}
             className={` ${
               props.validator.hasError &&
               props.type != "file" &&

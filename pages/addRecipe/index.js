@@ -5,7 +5,8 @@ import useInput from "@/hooks/use-input";
 import Ingredients from "@/components/addRecipe/ingredients";
 import Instructions from "@/components/addRecipe/instructions";
 import Autocomplete from "@/components/general/autocomplete";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import SnackbarContext from "@/store/snackbar-context";
 import { randomBytes } from "crypto";
 import {
   DEV_BACKEND_URL,
@@ -22,6 +23,8 @@ const AddRecipe = (props) => {
   const [instructions, setInstructions] = useState([]);
   const [selectedRecipe, setSelectedRecipe] = useState({});
   const [selectedFile, setSelectedFile] = useState();
+
+  const snackbarCtx = useContext(SnackbarContext);
 
   AWS.config.update({
     accessKeyId: S3_ACCESS_KEY,
@@ -74,7 +77,7 @@ const AddRecipe = (props) => {
   };
 
   const numberValidator = (val) => {
-    return val > 0 && val.trim().length <= 3;
+    return val > 0 && val.trim().length <= 10;
   };
   const checkValidator = (val) => {
     return true;
@@ -190,9 +193,7 @@ const AddRecipe = (props) => {
 
   const submitHandler = async () => {
     const imgUrl = await uploadImage(uploadInput.value);
-    console.log(imgUrl);
     const body = createRequest(imgUrl);
-    console.log(body);
     const response = await fetch(`${DEV_BACKEND_URL}recipe`, {
       method: "POST",
       headers: {
@@ -200,7 +201,27 @@ const AddRecipe = (props) => {
       },
       body: JSON.stringify(body),
     });
-    console.log(response.json());
+    const res = await response.json();
+    console.log(res);
+    nameInput.reset();
+    descriptionInput.reset();
+    categoryInput.reset();
+    checkInput.reset();
+    timeInput.reset();
+    uploadInput.reset();
+    instructionsInput.reset();
+    ingredientName.reset();
+    ingredientAmount.reset();
+    ingredientUnit.reset();
+    setIngredients([]);
+    setInstructions([]);
+    setSelectedRecipe({});
+    setSelectedFile({});
+    snackbarCtx.displayMsg(
+      "Recipe was successfully submitted! It can be found ",
+      res.id,
+      true
+    );
   };
 
   return (

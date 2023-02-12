@@ -16,8 +16,10 @@ const IngredientList = (props) => {
             className="bg-slate-200 rounded-lg px-4 py-2 flex gap-2 items-center drop-shadow-md"
           >
             <span>{`${ingredient.quantity} ${
-              ingredient.unit != "N/A" ? `${ingredient.unit} of` : ""
-            }${ingredient.quantity > 1 ? "s" : ""} ${ingredient.name}`}</span>
+              ingredient.unit != "N/A"
+                ? `${ingredient.unit}${ingredient.quantity > 1 ? "s" : ""} of `
+                : ""
+            }${ingredient.name}`}</span>
             <FontAwesomeIcon
               icon={faCircleXmark}
               className="cursor-pointer"

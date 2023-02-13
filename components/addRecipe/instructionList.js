@@ -54,7 +54,7 @@ const InstructionList = (props) => {
                 )}
               </div>
               <div>
-                <p className="break-word">
+                <p className="break-words">
                   <span className="font-semibold text-[24px]">
                     {index + 1}.{" "}
                   </span>{" "}

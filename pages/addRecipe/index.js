@@ -115,17 +115,17 @@ const AddRecipe = (props) => {
     "Individual instructions must be no more than 256 characters."
   );
 
-  const ingredientName = useInput(
+  const ingredientNameInput = useInput(
     nameValidator,
     "Please input an ingredient name that is less than 64 characters.",
     false
   );
-  const ingredientAmount = useInput(
+  const ingredientAmountInput = useInput(
     numberValidator,
     "Please input an ingredient amount that is greater than 0.",
     false
   );
-  const ingredientUnit = useInput(
+  const ingredientUnitInput = useInput(
     selectValidator,
     "Please select a unit.",
     true
@@ -150,9 +150,9 @@ const AddRecipe = (props) => {
 
   let isIngredientValid = ingredients.length > 0;
   if (
-    !ingredientName.isTouched &&
-    !ingredientAmount.isTouched &&
-    !ingredientUnit.isTouched &&
+    !ingredientNameInput.isTouched &&
+    !ingredientAmountInput.isTouched &&
+    !ingredientUnitInput.isTouched &&
     !isIngredientValid
   ) {
     isIngredientValid = null;
@@ -219,9 +219,9 @@ const AddRecipe = (props) => {
       timeInput.reset();
       uploadInput.reset();
       instructionsInput.reset();
-      ingredientName.reset();
-      ingredientAmount.reset();
-      ingredientUnit.reset();
+      ingredientNameInput.reset();
+      ingredientAmountInput.reset();
+      ingredientUnitInput.reset();
       setIngredients([]);
       setInstructions([]);
       setSelectedRecipe({});
@@ -246,8 +246,6 @@ const AddRecipe = (props) => {
       <Navbar />
       <div className="w-full bg-slate-300 pr-8 sm:pr-0 min-h-[calc(100vh-65px)] sm:min-h-[calc(100vh-115px)]">
         <div className="max-w-[1500px] mx-auto py-8 sm:py-16">
-          {/* <div className="flex justify-between items-end sm:items-center"> */}
-          {/* <div> */}
           <div className="grid grid-rows-2 grid-cols-4 gap-x-6">
             <h1 className="text-[48px] mx-8 mb-4 font-semibold row-span-1 col-span-4 text-center sm:text-left sm:row-span-2 sm:col-start-1 sm:col-end-3">
               Add Recipe
@@ -255,7 +253,7 @@ const AddRecipe = (props) => {
             <p className="text-[18px] ml-8 mb-4 sm:mb-8 sm:mx-8 self-end sm:justify-self-auto col-start-1 justify-self-center mr-16 col-end-4 row-span-1 sm:row-span-2">
               Please fill out details for your recipe.
             </p>
-            {/* </div> */}
+
             <button
               className="bg-red-200 px-6 sm:mr-6 mb-4 mr-20 py-2 w-fit h-fit rounded sm:justify-self-end self-end justify-self-center sm:row-span-2 disabled:opacity-50"
               onClick={submitHandler}
@@ -266,7 +264,6 @@ const AddRecipe = (props) => {
               Submit
             </button>
           </div>
-          {/* </div> */}
           <Accordion
             index={1}
             title={"General Details"}
@@ -296,12 +293,12 @@ const AddRecipe = (props) => {
             optional={false}
           >
             <Ingredients
-              name={ingredientName}
-              amount={ingredientAmount}
-              unitsValidator={ingredientUnit}
+              name={ingredientNameInput}
+              amount={ingredientAmountInput}
+              units={ingredientUnitInput}
               ingredients={ingredients}
-              addIngredient={setIngredients}
-              units={props.units}
+              setIngredients={setIngredients}
+              unitsArr={props.units}
             />
           </Accordion>
           <Accordion

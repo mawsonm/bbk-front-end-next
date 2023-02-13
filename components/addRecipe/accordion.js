@@ -12,7 +12,9 @@ const Accordion = (props) => {
   return (
     <>
       <div
-        className={`flex justify-between mx-8 border-t-2 border-slate-200 text-[30px] items-center cursor-pointer ${
+        className={`${
+          open ? "border-b-2" : ""
+        } flex justify-between mx-8 border-t-2 border-slate-200 text-[30px] items-center cursor-pointer ${
           props.index == 4 ? "border-b-2" : ""
         }`}
         onClick={() => setOpen((prev) => !prev)}
@@ -38,7 +40,7 @@ const Accordion = (props) => {
           />
         </div>
       </div>
-      <div className={`${!open && "hidden"}`}>{props.children}</div>
+      <div className={`${!open ? "hidden" : ""}`}>{props.children}</div>
     </>
   );
 };

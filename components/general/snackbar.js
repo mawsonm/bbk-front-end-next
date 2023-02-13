@@ -31,11 +31,16 @@ const Snackbar = () => {
             snackbarCtx.isSuccess ? "text-neutral-50" : "text-neutral-800"
           }`}
         >
-          {snackbarCtx.msg}
+          {snackbarCtx.msg}{" "}
+          {snackbarCtx.isSuccess && (
+            <Link
+              className="text-red-100 hover:opacity-50 transition-all"
+              href={`/recipe/${snackbarCtx.id}`}
+            >
+              here.
+            </Link>
+          )}
         </span>
-        {snackbarCtx.isSuccess && (
-          <Link href={`/recipe/${snackbarCtx.id}`}>here.</Link>
-        )}
       </div>
       <span
         className={`${

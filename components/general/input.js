@@ -49,7 +49,7 @@ const Input = (props) => {
               maxLength={256}
               className={` ${
                 props.validator.hasError && "border-red-600 border"
-              } rounded resize-none min-w-[225px] sm:w-full sm:w-[325px] w-full h-[22rem] sm:h-[8rem] mb-2 focus:outline bg-slate-200 py-2 px-4 focus:bg-slate-100 focus:outline-2 outline-red-200`}
+              } rounded resize-none min-w-[225px] w-full h-[22rem] sm:h-[8rem] sm:mb-2 focus:outline bg-slate-200 py-2 px-4 focus:bg-slate-100 focus:outline-2 outline-red-200`}
               onChange={props.validator.valueChangeHandler}
               onBlur={props.validator.inputBlurHandler}
               type={props.type}

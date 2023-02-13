@@ -18,7 +18,7 @@ const Instructions = (props) => {
           validator={props.validator}
         />
         <button
-          className="bg-red-200 px-6 py-2 rounded disabled:opacity-50"
+          className="bg-red-200 mt-8 px-6 py-2 rounded disabled:opacity-50"
           disabled={!props.validator.isValid}
           onClick={() => submitHandler(props.validator.value)}
         >

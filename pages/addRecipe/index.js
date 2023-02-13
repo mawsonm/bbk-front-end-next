@@ -5,7 +5,7 @@ import useInput from "@/hooks/use-input";
 import Ingredients from "@/components/addRecipe/ingredients";
 import Instructions from "@/components/addRecipe/instructions";
 import Autocomplete from "@/components/general/autocomplete";
-import { useState, useContext } from "react";
+import { useState, useRef, useContext } from "react";
 import SnackbarContext from "@/store/snackbar-context";
 import { randomBytes } from "crypto";
 import {
@@ -24,6 +24,8 @@ const AddRecipe = (props) => {
   const [selectedRecipe, setSelectedRecipe] = useState({});
   const [selectedFile, setSelectedFile] = useState();
 
+  const ref = useRef();
+
   const snackbarCtx = useContext(SnackbarContext);
 
   AWS.config.update({
@@ -36,10 +38,10 @@ const AddRecipe = (props) => {
     region: REGION,
   });
 
-  const uploadImage = async (file) => {
+  const uploadImage = (file) => {
     const arr = file.split("\\");
     const name = arr[arr.length - 1];
-    const rawbytes = await randomBytes(16);
+    const rawbytes = randomBytes(16);
     const imageName = rawbytes.toString("hex");
     const key = imageName + name;
     console.log(file);
@@ -48,14 +50,9 @@ const AddRecipe = (props) => {
       Bucket: S3_BUCKET,
       Key: key,
     };
-    myBucket
-      .putObject(params)
-      .on("httpUploadProgress", (evt) => {
-        setProgress(Math.round((evt.loaded / evt.total) * 100));
-      })
-      .send((err) => {
-        if (err) console.log(err);
-      });
+    myBucket.putObject(params).send((err) => {
+      if (err) console.log(err);
+    });
 
     return S3_BASE_URL + key;
   };
@@ -104,7 +101,7 @@ const AddRecipe = (props) => {
   );
   const timeInput = useInput(
     numberValidator,
-    "Please input a number greater than 0 that is 3 digits or less.",
+    "Time to cook is required.",
     false
   );
   const uploadInput = useInput(
@@ -192,52 +189,75 @@ const AddRecipe = (props) => {
   };
 
   const submitHandler = async () => {
-    const imgUrl = await uploadImage(uploadInput.value);
-    const body = createRequest(imgUrl);
-    const response = await fetch(`${DEV_BACKEND_URL}recipe`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
-    const res = await response.json();
-    console.log(res);
-    nameInput.reset();
-    descriptionInput.reset();
-    categoryInput.reset();
-    checkInput.reset();
-    timeInput.reset();
-    uploadInput.reset();
-    instructionsInput.reset();
-    ingredientName.reset();
-    ingredientAmount.reset();
-    ingredientUnit.reset();
-    setIngredients([]);
-    setInstructions([]);
-    setSelectedRecipe({});
-    setSelectedFile({});
-    snackbarCtx.displayMsg(
-      "Recipe was successfully submitted! It can be found ",
-      res.id,
-      true
-    );
+    let imgUrl;
+    try {
+      imgUrl = uploadImage(uploadInput.value);
+    } catch (e) {
+      console.log(e);
+      snackbarCtx.displayMsg(
+        "There wasan error uploading the image. Please try again.",
+        null,
+        false
+      );
+    }
+    try {
+      const body = createRequest(imgUrl);
+      const response = await fetch(`${DEV_BACKEND_URL}recipe`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+      const res = await response.json();
+      console.log(res);
+      nameInput.reset();
+      descriptionInput.reset();
+      categoryInput.reset();
+      checkInput.reset();
+      ref.current.checked = false;
+      timeInput.reset();
+      uploadInput.reset();
+      instructionsInput.reset();
+      ingredientName.reset();
+      ingredientAmount.reset();
+      ingredientUnit.reset();
+      setIngredients([]);
+      setInstructions([]);
+      setSelectedRecipe({});
+      setSelectedFile({});
+      snackbarCtx.displayMsg(
+        "Recipe was successfully submitted! It can be found",
+        res.id,
+        true
+      );
+    } catch (e) {
+      console.log(e);
+      snackbarCtx.displayMsg(
+        "There was an error saving the recipe. Please try again later.",
+        null,
+        false
+      );
+    }
   };
 
   return (
     <>
       <Navbar />
-      <div className="w-full bg-slate-300 min-h-[calc(100vh-115px)]">
-        <div className="max-w-[1500px] mx-auto py-16">
-          <div className="flex justify-between items-center">
-            <div>
-              <h1 className="text-[48px] mx-8 font-semibold">Add Recipe</h1>
-              <p className="text-[18px] mb-8 mx-8">
-                Please fill out details for your recipe.
-              </p>
-            </div>
+      <div className="w-full bg-slate-300 pr-8 sm:pr-0 min-h-[calc(100vh-65px)] sm:min-h-[calc(100vh-115px)]">
+        <div className="max-w-[1500px] mx-auto py-8 sm:py-16">
+          {/* <div className="flex justify-between items-end sm:items-center"> */}
+          {/* <div> */}
+          <div className="grid grid-rows-2 grid-cols-4 gap-x-6">
+            <h1 className="text-[48px] mx-8 mb-4 font-semibold row-span-1 col-span-4 text-center sm:text-left sm:row-span-2 sm:col-start-1 sm:col-end-3">
+              Add Recipe
+            </h1>
+            <p className="text-[18px] ml-8 mb-4 sm:mb-8 sm:mx-8 self-end sm:justify-self-auto col-start-1 justify-self-center mr-16 col-end-4 row-span-1 sm:row-span-2">
+              Please fill out details for your recipe.
+            </p>
+            {/* </div> */}
             <button
-              className="bg-red-200 px-6 py-2 rounded disabled:opacity-50"
+              className="bg-red-200 px-6 sm:mr-6 mb-4 mr-20 py-2 w-fit h-fit rounded sm:justify-self-end self-end justify-self-center sm:row-span-2 disabled:opacity-50"
               onClick={submitHandler}
               disabled={
                 !isGeneralValid || !isIngredientValid || !isInstructionValid
@@ -246,6 +266,7 @@ const AddRecipe = (props) => {
               Submit
             </button>
           </div>
+          {/* </div> */}
           <Accordion
             index={1}
             title={"General Details"}
@@ -264,6 +285,7 @@ const AddRecipe = (props) => {
               categories={props.categories}
               fileSelected={selectedFile}
               setFileSelected={setSelectedFile}
+              checkboxRef={ref}
             />
           </Accordion>
           <Accordion

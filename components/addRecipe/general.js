@@ -3,7 +3,7 @@ import Select from "./select";
 import Checkbox from "../general/checkbox";
 const General = (props) => {
   return (
-    <div className="px-16 py-8 flex flex-wrap gap-8">
+    <div className="px-16 py-8 flex flex-wrap gap-4 sm:gap-8">
       <Input title={"Recipe Name*"} type={"text"} validator={props.name} />
       <Input
         title={"Description*"}
@@ -15,7 +15,11 @@ const General = (props) => {
         options={props.categories}
         validator={props.categoriesValidator}
       />
-      <Checkbox title={"Matt's Fav?"} validator={props.fav} />
+      <Checkbox
+        title={"Matt's Fav?"}
+        validator={props.fav}
+        checkboxRef={props.checkboxRef}
+      />
       <Input
         title={"Time to Cook*"}
         type={"number"}

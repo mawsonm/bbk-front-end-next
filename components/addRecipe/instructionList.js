@@ -32,10 +32,10 @@ const InstructionList = (props) => {
   };
 
   return (
-    <div className="px-16 py-8 flex flex-col gap-8 w-full">
+    <div className="px-16 py-8 flex flex-col gap-8">
       {props.instructions.map((instruction, index) => {
         return (
-          <div className="flex justify-between items-center w-full" key={index}>
+          <div className="flex justify-between items-center" key={index}>
             <div className="flex gap-4">
               <div className="flex flex-col gap-2">
                 {index != 0 && (
@@ -53,10 +53,14 @@ const InstructionList = (props) => {
                   />
                 )}
               </div>
-              <p>
-                <span className="font-semibold text-[24px]">{index + 1}. </span>{" "}
-                {instruction}
-              </p>
+              <div>
+                <p className="break-word">
+                  <span className="font-semibold text-[24px]">
+                    {index + 1}.{" "}
+                  </span>{" "}
+                  {instruction}
+                </p>
+              </div>
             </div>
             <FontAwesomeIcon
               icon={faCircleXmark}

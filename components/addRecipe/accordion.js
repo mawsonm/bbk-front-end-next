@@ -17,7 +17,7 @@ const Accordion = (props) => {
         }`}
         onClick={() => setOpen((prev) => !prev)}
       >
-        <h2 className="p-4 font-semibold">
+        <h2 className="p-4 text-[24px] sm:text-[30px] font-semibold">
           {props.index}. {props.title}
         </h2>
         <div className="flex gap-8">
@@ -28,7 +28,7 @@ const Accordion = (props) => {
             <FontAwesomeIcon icon={faCircleExclamation} color={"#ef4444"} />
           )}
           {props.optional && (
-            <span className="italic text-neutral-500 text-[18px] ml-8">
+            <span className="italic text-neutral-500 text-[16px] sm:text-[18px] ml-8">
               Optional
             </span>
           )}

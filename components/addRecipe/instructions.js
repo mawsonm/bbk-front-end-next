@@ -5,6 +5,7 @@ const Instructions = (props) => {
     props.setInstructions((prev) => {
       return [...prev, val];
     });
+    console.log("in submit");
     props.validator.reset();
   };
 

@@ -35,7 +35,7 @@ const Autocomplete = (props) => {
   };
 
   return (
-    <div className="px-16 py-8 flex gap-16 items-start">
+    <div className="px-16 py-8 flex sm:flex-row flex-col gap-4 sm:gap-16 items-start">
       <div className={`relative pt-8 h-[200px]`}>
         <label className="absolute top-0 left-0 text-neutral-500">
           {props.title}
@@ -46,13 +46,13 @@ const Autocomplete = (props) => {
           onFocus={(e) => setFocused(true)}
           onBlur={(e) => setFocused(false)}
           value={inputValue}
-          className={`w-[50%] min-w-[325px] rounded bg-slate-200 py-2 px-4 focus:bg-slate-100 focus:outline-2 outline-red-200`}
+          className={`w-[50%] min-w-[225px] rounded bg-slate-200 py-2 px-4 focus:bg-slate-100 focus:outline-2 outline-red-200`}
         />
         {
           <ul
             className={`${
               !focused ? "hidden" : ""
-            } max-h-[150px] w-[50%] min-w-[325px] overflow-y-scroll flex flex-col bg-slate-100 border-2 border-red-200`}
+            } max-h-[150px] w-[50%] min-w-[225px] overflow-y-scroll flex flex-col bg-slate-100 border-2 border-red-200`}
           >
             {recipes
               .filter((recipe) =>
@@ -89,23 +89,29 @@ const Autocomplete = (props) => {
                   alt={props.selected.name}
                 />
               </div>
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2 sm:gap-4">
                 <div>
-                  <label className="text-neutral-500">Name: </label>
-                  <span className="text-neutral-800 ">
+                  <label className="text-neutral-500 text-[14px] sm:text-[16px] ">
+                    Name:{" "}
+                  </label>
+                  <span className="text-neutral-800 text-[14px] sm:text-[16px] ">
                     {props.selected.name}
                   </span>
                 </div>
                 <div>
-                  <label className="text-neutral-500">Description: </label>
-                  <span className="text-neutral-800 ">
+                  <label className="text-neutral-500 text-[14px] sm:text-[16px]">
+                    Description:{" "}
+                  </label>
+                  <span className="text-neutral-800 text-[14px] sm:text-[16px] ">
                     {props.selected.description}
                   </span>
                 </div>
                 <div>
-                  <label className="text-neutral-500">Time to Make: </label>
-                  <span className="text-neutral-800 ">
-                    {props.selected.timeToCook} minutes
+                  <label className="text-neutral-500 text-[14px] sm:text-[16px]">
+                    Time to Make:{" "}
+                  </label>
+                  <span className="text-neutral-800 text-[14px] sm:text-[16px] ">
+                    {props.selected.timeToCook} min
                   </span>
                 </div>
               </div>

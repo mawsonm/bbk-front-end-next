@@ -5,6 +5,7 @@ const Checkbox = (props) => {
         {props.title}
       </label>
       <input
+        ref={props.checkboxRef}
         type="checkbox"
         className={` w-[24px] h-[24px] mt-2 rounded py-2 px-4 before:bg-slate-200 border-slate-200 accent-red-200 [&:not(:checked)]:opacity-50
             `}

@@ -13,7 +13,10 @@ const Input = (props) => {
           : ""
       } ${props.suffix && "w-[120px]"}`}
     >
-      <label className="absolute top-0 left-0 text-neutral-500">
+      <label
+        htmlFor={props.title}
+        className="absolute top-0 left-0 text-neutral-500"
+      >
         {props.title}
       </label>
       <div
@@ -23,6 +26,7 @@ const Input = (props) => {
       >
         {props.title != "Instruction" && (
           <input
+            id={props.title}
             onChange={(e) => changeHandler(e)}
             onBlur={props.validator.inputBlurHandler}
             type={props.type}
@@ -31,6 +35,12 @@ const Input = (props) => {
             className={` ${
               props.validator.hasError &&
               props.type != "file" &&
+              props.secondaryValidator == null &&
+              "border-red-600 border"
+            } ${
+              props.validator.hasError &&
+              props.secondaryValidator != null &&
+              props.secondaryValidator.value != "to taste" &&
               "border-red-600 border"
             } rounded mb-2 focus:outline ${
               props.type === "file"
@@ -66,9 +76,13 @@ const Input = (props) => {
           </span>
         )}
       </div>
-      <p className="text-[13px] absolute text-red-600 ml-1">
-        {props.validator.message}
-      </p>
+      {(props.secondaryValidator == null ||
+        (props.secondaryValidator != null &&
+          props.secondaryValidator.value != "to taste")) && (
+        <p className="text-[13px] absolute text-red-600 ml-1">
+          {props.validator.message}
+        </p>
+      )}
     </div>
   );
 };

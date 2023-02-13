@@ -11,7 +11,7 @@ const Instructions = (props) => {
 
   return (
     <>
-      <div className="px-16 py-8 flex flex-wrap gap-8 items-end">
+      <form className="px-16 py-8 flex flex-wrap gap-8 items-end">
         <Input
           type={"text"}
           title={"Instruction"}
@@ -24,7 +24,7 @@ const Instructions = (props) => {
         >
           Submit
         </button>
-      </div>
+      </form>
       <InstructionList
         instructions={props.instructions}
         setInstructions={props.setInstructions}

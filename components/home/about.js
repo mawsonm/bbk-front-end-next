@@ -27,6 +27,7 @@ const About = () => {
                 x="225"
                 y="0"
                 xlinkHref="/images/donuts.png"
+                alt="Bri Bri holding donut"
                 className="scale-[0.3] rotate-6 "
               />
             </g>
@@ -40,6 +41,7 @@ const About = () => {
             width={75}
             height={75}
             src={"/images/underline.svg"}
+            alt={"underline emphasis"}
             className="absolute right-[7%] md:right-[25%] md:top-[17%] lg:right-[46%] lg:top-[15%]"
           />
           <p className="md:max-w-[60ch] sm:text-left max-w-[30ch] text-[18px] mt-8">

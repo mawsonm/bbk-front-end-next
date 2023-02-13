@@ -3,7 +3,7 @@ import Select from "./select";
 import Checkbox from "../general/checkbox";
 const General = (props) => {
   return (
-    <div className="px-16 py-8 flex flex-wrap gap-4 sm:gap-8">
+    <form className="px-16 py-8 flex flex-wrap gap-4 sm:gap-8">
       <Input title={"Recipe Name*"} type={"text"} validator={props.name} />
       <Input
         title={"Description*"}
@@ -33,7 +33,7 @@ const General = (props) => {
         selectedFile={props.fileSelected}
         setSelectedFile={props.setFileSelected}
       />
-    </div>
+    </form>
   );
 };
 

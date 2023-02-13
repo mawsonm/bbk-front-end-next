@@ -19,9 +19,14 @@ const Ingredients = (props) => {
 
   return (
     <>
-      <div className="px-16 py-8 flex flex-wrap gap-8 items-center">
+      <form className="px-16 py-8 flex flex-wrap gap-8 items-center">
         <Input type={"text"} title={"Ingredient Name"} validator={props.name} />
-        <Input type={"number"} title={"Amount"} validator={props.amount} />
+        <Input
+          type={"number"}
+          title={"Amount"}
+          validator={props.amount}
+          secondaryValidator={props.units}
+        />
         <Select
           title={"Unit"}
           validator={props.units}
@@ -31,12 +36,14 @@ const Ingredients = (props) => {
           className="bg-red-200 px-6 py-2 rounded disabled:opacity-50"
           onClick={submitHandler}
           disabled={
-            !props.name.isValid || !props.amount.isValid || !props.units.isValid
+            !props.name.isValid ||
+            (!props.amount.isValid && props.units.value !== "to taste") ||
+            !props.units.isValid
           }
         >
           Submit
         </button>
-      </div>
+      </form>
       <IngredientList
         ingredients={props.ingredients}
         setIngredients={props.setIngredients}

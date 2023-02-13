@@ -8,6 +8,7 @@ import Autocomplete from "@/components/general/autocomplete";
 import { useState, useRef, useContext } from "react";
 import SnackbarContext from "@/store/snackbar-context";
 import { randomBytes } from "crypto";
+import { NextSeo } from "next-seo";
 import {
   DEV_BACKEND_URL,
   S3_ACCESS_KEY,
@@ -178,10 +179,18 @@ const AddRecipe = (props) => {
         return { number: index + 1, description: step };
       }),
       ingredients: ingredients.map((ingredient) => {
-        return {
-          ...ingredient,
-          unit: props.units.filter((unit) => unit.name == ingredient.unit)[0],
-        };
+        if (ingredient.unit == "to taste") {
+          return {
+            name: ingredient.name,
+            quantity: null,
+            unit: props.units.filter((unit) => unit.name == ingredient.unit)[0],
+          };
+        } else {
+          return {
+            ...ingredient,
+            unit: props.units.filter((unit) => unit.name == ingredient.unit)[0],
+          };
+        }
       }),
       drinkPairing:
         Object.values(selectedRecipe).length == 0 ? null : selectedRecipe,
@@ -202,6 +211,7 @@ const AddRecipe = (props) => {
     }
     try {
       const body = createRequest(imgUrl);
+      console.log(body);
       const response = await fetch(`${DEV_BACKEND_URL}recipe`, {
         method: "POST",
         headers: {
@@ -243,6 +253,10 @@ const AddRecipe = (props) => {
 
   return (
     <>
+      <NextSeo
+        title="Bri Bri's Kitchen | Add Recipe"
+        description="Add a delicious recipe to Bri Bri's collection."
+      />
       <Navbar />
       <div className="w-full bg-slate-300 pr-8 sm:pr-0 min-h-[calc(100vh-65px)] sm:min-h-[calc(100vh-115px)]">
         <div className="max-w-[1500px] mx-auto py-8 sm:py-16">

@@ -9,7 +9,7 @@ const Hero = () => {
       <Image
         className="transform -scale-x-100 sm:translate-x-0 object-cover sm:object-center object-right  -z-10 "
         src="/images/hero.jpg"
-        alt="Chef plating Filet Mignon"
+        alt="Strawberries and bread"
         fill={true}
       />
       <Navbar />

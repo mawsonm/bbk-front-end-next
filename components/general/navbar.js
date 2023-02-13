@@ -45,6 +45,24 @@ const Navbar = () => {
               About
             </a>
           </li>
+          <li onClick={() => window.location.replace("/#recipes")}>
+            <a
+              className={`${
+                router.pathname == "/addRecipe" ? "text-white" : ""
+              } py-4  px-6 cursor-pointer hover:bg-slate-300 transition-colors rounded`}
+            >
+              Recipes
+            </a>
+          </li>
+          <li onClick={() => window.location.replace("/#search")}>
+            <a
+              className={`${
+                router.pathname == "/addRecipe" ? "text-white" : ""
+              } py-4  px-6 cursor-pointer hover:bg-slate-300 transition-colors rounded`}
+            >
+              Search
+            </a>
+          </li>
         </ul>
         <button className="bg-red-200 px-6 py-2 rounded">Login</button>
       </nav>

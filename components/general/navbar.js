@@ -7,7 +7,11 @@ const Navbar = () => {
   return (
     <header
       className={`${
-        router.pathname == "/addRecipe" ? "bg-slate-500" : "bg-transparent"
+        router.pathname == "/addRecipe"
+          ? "bg-slate-500"
+          : router.pathname == "/search"
+          ? "bg-slate-200"
+          : "bg-transparent"
       } w-full z-10`}
     >
       <nav className="mx-auto py-4 px-8 sm:flex justify-between items-center hidden max-w-[1700px]">

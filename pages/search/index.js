@@ -4,16 +4,29 @@ import RecipeGrid from "@/components/search/recipeGrid";
 import Navbar from "@/components/general/navbar";
 import SearchHero from "@/components/search/searchHero";
 import { DEV_BACKEND_URL } from "@/env/env";
+import CheckFilters from "@/components/search/checkFilters";
+import TimeFilter from "@/components/search/TimeFilter";
 
 const Search = (props) => {
   return (
     <div className="bg-slate-100 min-h-[100vh]">
       <Navbar />
-      <div className="px-32">
+      <div className="px-36">
         <SearchHero />
-        <aside className="w-fit float-left">
-          <h3 className="text-[24px] font-bold mb-8">Filters</h3>
-          <SearchFilters title={"Categories"} options={props.categories} />
+        <aside className="w-fit float-left ">
+          <h3 className="text-[28px] font-bold mb-8">Filters</h3>
+          <SearchFilters title={"Categories"}>
+            <CheckFilters options={props.categories} />
+          </SearchFilters>
+          <SearchFilters title={"Cook Time"}>
+            <TimeFilter />
+          </SearchFilters>
+          <h3 className="text-[28px] font-bold mb-8">Sort by</h3>
+          <select className="rounded focus:outline-red-200 p-2 w-[150px]">
+            <option>Most Recent</option>
+            <option>Cook Time</option>
+            <option>Category</option>
+          </select>
         </aside>
         <div className="ml-56">
           <SearchInput />
@@ -40,11 +53,8 @@ export async function getStaticProps() {
     return { name: item.name, id: item.id };
   });
 
-  const recipeData = await fetch(`${DEV_BACKEND_URL}api/recipe`);
-  const recipeInfo = await recipeData.json();
-  const recipes = recipeInfo._embedded.recipe.map((item) => {
-    return item;
-  });
+  const recipeData = await fetch(`${DEV_BACKEND_URL}recipe/all`);
+  const recipes = await recipeData.json();
 
   console.log(recipes);
 

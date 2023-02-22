@@ -10,7 +10,7 @@ const Navbar = () => {
         router.pathname == "/addRecipe"
           ? "bg-slate-500"
           : router.pathname == "/search"
-          ? "bg-slate-200"
+          ? "bg-slate-100"
           : "bg-transparent"
       } w-full z-10`}
     >

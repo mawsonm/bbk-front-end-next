@@ -6,7 +6,7 @@ const SearchFilters = (props) => {
   const [open, isOpen] = useState(false);
   return (
     <>
-      <div className="flex justify-between items-center w-[150px]">
+      <div className="flex justify-between items-center w-[150px] mb-8">
         <h3 className="text-[18px] font-semibold">{props.title}</h3>
         <FontAwesomeIcon
           className="cursor-pointer"
@@ -14,18 +14,7 @@ const SearchFilters = (props) => {
           onClick={() => isOpen((prev) => !prev)}
         />
       </div>
-      {open && (
-        <div className="flex flex-col gap-4 mt-8 w-[150px]">
-          {props.options.map((option) => {
-            return (
-              <div key={option.id} className="flex justify-between">
-                <label>{option.name}</label>
-                <input type="checkbox" />
-              </div>
-            );
-          })}
-        </div>
-      )}
+      {open && props.children}
     </>
   );
 };

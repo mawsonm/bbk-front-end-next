@@ -1,10 +1,15 @@
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/router";
 const RecipeCard = (props) => {
   console.log(props.recipe.category);
+  const router = useRouter();
   return (
-    <div className="rounded-lg h-[400px] w-[300px] cursor-pointer hover:scale-105 transition-transform bg-slate-200">
+    <div
+      onClick={() => router.push(`/recipe/${props.recipe.id}`)}
+      className="rounded-lg h-[400px] w-[300px] cursor-pointer hover:scale-105 transition-transform bg-slate-200"
+    >
       <div className="relative overflow-hidden rounded-t-lg">
         {props.recipe.favoriteInd && (
           <Image
